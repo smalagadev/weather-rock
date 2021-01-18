@@ -1,52 +1,52 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import axios from 'axios';
+import React, { useState } from 'react';
+import Search from '../components/search';
+
+// function kelvinToF(kelvin) {
+//   return (kelvin − 273.15) * 9/5 + 32
+// }
+// function kelvinToC(kelvin) {
+//   return (kelvin − 273.15)
+// }
 
 export default function Home() {
+  const APIkey = 'dd94c2216069276513043d32b0ae85ab';
+  const city = 'Atlanta';
+
+  let weather = {};
+  let [info, setInfo] = useState({});
+
+  axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIkey}`)
+  .then((response) =>{
+    weather = response.data;
+    setInfo(weather);
+    console.log(weather);
+  })
+  .catch(error => {
+    console.log(`Error: ${error}`);
+  });
+
+  // handleChange() = {
+  //
+  // }
+
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Weather Stone</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to Weather Rock.
         </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+        <Search/>
 
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+          <h1 >{ JSON.stringify(info) || "none" }</h1>
         </div>
       </main>
 
