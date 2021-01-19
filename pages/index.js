@@ -1,6 +1,5 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import axios from 'axios';
+import Head from 'next/head';
+import styles from '../styles/Home.module.css';
 import React, { useState } from 'react';
 import Search from '../components/search';
 
@@ -11,26 +10,13 @@ import Search from '../components/search';
 //   return (kelvin − 273.15)
 // }
 
+// Get geolocation - https://www.w3schools.com/html/html5_geolocation.asp
+
 export default function Home() {
-  const APIkey = 'dd94c2216069276513043d32b0ae85ab';
+
   const city = 'Atlanta';
 
   let weather = {};
-  let [info, setInfo] = useState({});
-
-  axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIkey}`)
-  .then((response) =>{
-    weather = response.data;
-    setInfo(weather);
-    console.log(weather);
-  })
-  .catch(error => {
-    console.log(`Error: ${error}`);
-  });
-
-  // handleChange() = {
-  //
-  // }
 
   return (
     <div className={styles.container}>
@@ -46,7 +32,7 @@ export default function Home() {
         <Search/>
 
         <div className={styles.grid}>
-          <h1 >{ JSON.stringify(info) || "none" }</h1>
+          <h1 >{ "none" }</h1>
         </div>
       </main>
 
